@@ -1,0 +1,25 @@
+---
+title: "R Notebook"
+output:
+  pdf_document: default
+  html_notebook: default
+  word_document: default
+---
+
+
+```{r}
+segment<-read.csv("C:/Users/ASUS/Desktop/dataset/dataset.csv")
+```
+
+```{r}
+segment$age_grouped <- cut(segment$age, 
+                       breaks = c(-Inf, 18, 25, 29, 39, Inf), 
+                       labels = c("underage", "19-25", "26-29", "30-39", "40+"))
+```
+
+```{r}
+log_segment<-glm(purchased~sex + age_grouped + as.factor(education),data=segment,family = "binomial")
+summary(log_segment)
+exp(coef(log_segment))
+```
+
